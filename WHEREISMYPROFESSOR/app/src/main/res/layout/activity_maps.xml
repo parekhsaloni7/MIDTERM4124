@@ -24,6 +24,18 @@
         android:layout_weight="0.6"
         tools:context=".MapsActivity" />
 
+    <Button
+        android:id="@+id/ZOOM IN"
+        android:layout_width="54dp"
+        android:layout_height="wrap_content"
+        android:text="-" />
+
+    <Button
+        android:id="@+id/ZOOM OUT"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:text="+" />
+
     <TextView
         android:id="@+id/textview1"
         android:layout_width="match_parent"
