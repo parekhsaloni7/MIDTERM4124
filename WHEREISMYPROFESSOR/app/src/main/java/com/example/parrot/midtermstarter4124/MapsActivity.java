@@ -81,7 +81,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         //@TODO: Part 4 - Uncomment this code.
-        /*
+
         // 1. Setup the location manager variable
         this.manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -90,7 +90,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // 3. Setup permissions
         setupPermissions();
-        */
+
     }
 
     public void setupLocationListener() {
@@ -101,8 +101,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onLocationChanged(Location location) {
                 // @TODO: Part 4 - Write the code to output the person's latitude and longitude to the screen
 
+                Log.d(TAG, "The user location changed!");
+                Log.d(TAG,"New location: " + location.toString());
+
+
+
                 // @TODO: Part 5 - Write the code to save the person's latitude and longitude to the variables
 
+                userLatitude = location.getLatitude();
+                userLongitude = location.getLongitude();
             }
 
             // IGNORE THIS FUNCTION!
@@ -180,7 +187,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void doJSONStuff(final GoogleMap mMap) {
 
         //@TODO: PART 2 - Change this URL
-        String URL = "https://api.sunrise-sunset.org/json?lat=36.7201600&lng=-4.4203400";
+        String URL = "https://myawesomeproject-ded96.firebaseio.com/college.json";
         //String URL = "https://myawesomeproject-ded96.firebaseio.com/college.json";
         Request request = new Request.Builder()
                 .url(URL)
@@ -213,7 +220,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                     // @TODO: PART 2 - 1. Write the code to parse out the instructors array
-                    JSONArray instructorsArray = obj.getJSONArray("____________");
+                    JSONArray instructorsArray = obj.getJSONArray("instructors");
 
 
                     // @TODO: PART 2 - 2. Write the code to iterate through each item in the array.
@@ -231,12 +238,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         // -------------
                         // @TODO: PART 2 - 3. Write code to parse out the instructor's name
 
+                        final String name = instructor.getString("name");
 
                         // @TODO: PART 2 - 4. Write name to parse out the latitude and longitude
 
+                        JSONObject location = instructor.getJSONObject("location");
+                        final double lat = location.getDouble("latitude");
+                        final double lng = location.getDouble("longitude");
+
                         // @TODO: PART 2 - 5. Write code to output the name, latitude, and longitude to the Terminal
 
+
+                        Log.d(TAG, "Name: " + name);
+                        Log.d(TAG, "Latitude: " + lat);
+                        Log.d(TAG, "Longitude: " + lng);
+                        Log.d(TAG, "--------");
                         // @TODO: PART 5 - Create a new Professor object & add it to the ArrayList
+
+                        Professor p = new Professor(name, lat, lng);
+                        professors.add(p);
+
 
                         // @TODO:  Show the Professor on the map
                         // output this status, sunrise and sunset time to the user interface
@@ -245,6 +266,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             public void run() {
                                 // @TODO: Put your map code in here
 
+
+                                Log.d(TAG, "Your map marker code should go here.");
+                                LatLng sydney = new LatLng(lat, lng);
+                                mMap.addMarker(new MarkerOptions().position(sydney).title(name));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12));
 
                             }
                         });
@@ -269,12 +295,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         TextView t = (TextView) findViewById(R.id.textview1);
         t.setText("");
 
+        Intent i = new Intent(this,ShowDistanceActtivity.class);
+
         //@TODO: Get the user's latitude and longitude
         // HINT: There  are class variables called userLatitude and userLongitude!
+
 
         //@TODO: Loop through the list of instructors.
         for (int i = 0; i < this.professors.size(); i++) {
             //@TODO: For each instructor, get their latitude and longitude
+
+
 
             //@TODO: Use the haversine formula to calculate the distance between the user and insructor
             double distance = getDistance(0,0, 1, 1);
