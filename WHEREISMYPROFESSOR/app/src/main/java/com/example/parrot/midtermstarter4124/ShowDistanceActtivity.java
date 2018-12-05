@@ -29,7 +29,7 @@ public class ShowDistanceActtivity extends AppCompatActivity {
         //@TODO: Write the code to get the user's latitude and longitude from the Intent
 
 
-        // @TODO: Writ the code to get the instructors out of the intent
+        // @TODO: Write the code to get the instructors out of the intent
         Bundle b = getIntent().getExtras();
         ArrayList<Professor> professors = (ArrayList<Professor>) b.getSerializable("professorList");
 
@@ -37,7 +37,11 @@ public class ShowDistanceActtivity extends AppCompatActivity {
         //@TODO: Loop through the list of instructors.
         for (int i = 0; i < professors.size(); i++) {
             //@TODO: For each instructor, get their latitude and longitude
+
+
             //@TODO: Use the haversine formula to calculate the distance between the user and insructor
+
+
 
             //@TODO: Output the instructor NAME + DISTANCE to the textview.
 

@@ -295,14 +295,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         TextView t = (TextView) findViewById(R.id.textview1);
         t.setText("");
 
-        Intent i = new Intent(this,ShowDistanceActtivity.class);
+       // Intent i = new Intent(this,ShowDistanceActtivity.class);
 
         //@TODO: Get the user's latitude and longitude
         // HINT: There  are class variables called userLatitude and userLongitude!
 
 
         //@TODO: Loop through the list of instructors.
-        for (int i = 0; i < this.professors.size(); i++) {
+           for (int i = 0; i < this.professors.size(); i++) {
             //@TODO: For each instructor, get their latitude and longitude
 
 
@@ -312,8 +312,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //double distance = getDistance(userLatitude,userLongitude, this.professors.get(i).getLat(), this.professors.get(i).getLng());
 
             //@TODO: Output the instructor NAME + DISTANCE to the textview.
-            String abc = "Your output goes here: " + String.format("%.2f", distance) + " km \n";
-            //String abc = this.professors.get(i).getName() + " is " + String.format("%.2f", distance) + " km away \n";
+           // String abc = "The distance between instructor and student is: " + String.format("%.2f", distance) + " km \n";
+            String abc = this.professors.get(i).getName() + " is " + String.format("%.2f", distance) + " km away \n";
             t.append(abc);
         }
     }
