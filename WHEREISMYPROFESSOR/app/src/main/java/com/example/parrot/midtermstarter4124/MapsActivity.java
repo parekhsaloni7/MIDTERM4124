@@ -161,6 +161,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         // @TODO: PART 1 - Write code to add zoom controls
 
+        UiSettings uiSettings = googleMap.getUiSettings();
+        uiSettings.setZoomControlsEnabled(true);
+
 
         mMap = googleMap;
 
